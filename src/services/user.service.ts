@@ -12,7 +12,12 @@ export function createUser({ name, email, password }: UserRequest) {
 }
 
 export function getUsers() {
-  return prisma.user.findMany();
+  return prisma
+    .$transaction([prisma.user.findMany(), prisma.user.count()])
+    .then(([user, count]) => ({
+      user,
+      count,
+    }));
 }
 
 export function getUser({ id }: { id: string }) {

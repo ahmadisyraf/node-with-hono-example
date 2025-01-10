@@ -1,5 +1,4 @@
 import { zValidator } from "@hono/zod-validator";
-import { z } from "zod";
 import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
 import { sign } from "hono/jwt";
