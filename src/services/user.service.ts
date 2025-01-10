@@ -1,5 +1,5 @@
 import prisma from "../lib/prisma";
-import { UserRequest, UserUpdateRequest } from "../zod/user.zod";
+import { UserRequest, UserResponse, UserUpdateRequest } from "../zod/user.zod";
 
 export function createUser({ name, email, password }: UserRequest) {
   return prisma.user.create({
@@ -48,14 +48,6 @@ export function deleteUser({ id }: { id: string }) {
   return prisma.user.delete({
     where: {
       id,
-    },
-  });
-}
-
-export function getUserByEmail({ email }: { email: string }) {
-  return prisma.user.findUnique({
-    where: {
-      email,
     },
   });
 }

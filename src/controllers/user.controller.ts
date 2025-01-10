@@ -3,7 +3,7 @@ import { zValidator } from "@hono/zod-validator";
 import bcrypt from "bcrypt";
 import { jwt } from "hono/jwt";
 import * as userService from "../services/user.service";
-import { userRequest, userUpdateRequest } from "../zod/user.zod";
+import { userRequest, UserResponse, userUpdateRequest } from "../zod/user.zod";
 
 const user = new Hono();
 

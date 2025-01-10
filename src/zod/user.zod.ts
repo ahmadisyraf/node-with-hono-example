@@ -9,10 +9,9 @@ export const userRequest = z.object({
 export const userResponse = z.object({
   id: z.string(),
   name: z.string(),
-  password: z.string(),
   email: z.string().email(),
-  createdAt: z.string(),
-  updatedAt: z.string(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
 });
 
 export const userLoginRequest = z.object({
