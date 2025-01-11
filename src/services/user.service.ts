@@ -1,12 +1,13 @@
 import prisma from "../lib/prisma";
-import { UserRequest, UserResponse, UserUpdateRequest } from "../zod/user.zod";
+import { UserRequest, UserUpdateRequest } from "../zod/user.zod";
+import bcrypt from "bcrypt";
 
 export function createUser({ name, email, password }: UserRequest) {
   return prisma.user.create({
     data: {
       name,
       email,
-      password,
+      password: bcrypt.hashSync(password, 10),
     },
   });
 }
@@ -36,7 +37,7 @@ export function updateUser({
   return prisma.user.update({
     data: {
       name,
-      password,
+      password: password ? bcrypt.hashSync(password, 10) : undefined,
     },
     where: {
       id,

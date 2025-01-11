@@ -1,9 +1,8 @@
 import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
-import bcrypt from "bcrypt";
 import { jwt } from "hono/jwt";
 import * as userService from "../services/user.service";
-import { userRequest, UserResponse, userUpdateRequest } from "../zod/user.zod";
+import { userRequest, userUpdateRequest } from "../zod/user.zod";
 
 const user = new Hono();
 
@@ -13,7 +12,7 @@ user.post(zValidator("json", userRequest), async (c) => {
   const user = await userService.createUser({
     name,
     email,
-    password: await bcrypt.hash(password, 10),
+    password,
   });
 
   return c.json(user);
@@ -42,7 +41,7 @@ user.patch(
 
     const user = await userService.updateUser({
       name,
-      password: password ? await bcrypt.hash(password, 10) : undefined,
+      password,
       id,
     });
 
