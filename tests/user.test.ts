@@ -1,4 +1,4 @@
-import { describe, test, expect, beforeEach, beforeAll } from "@jest/globals";
+import { describe, test, expect } from "@jest/globals";
 import app from "../src/routes";
 
 let accessToken: string;
@@ -20,7 +20,7 @@ describe("User endpoint testing", () => {
 
     const data = await res.json();
     userId = data.id;
-    
+
     expect(res.status).toBe(200);
   });
 
