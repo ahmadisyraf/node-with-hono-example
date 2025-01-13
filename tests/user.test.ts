@@ -23,7 +23,7 @@ describe("User endpoint testing", () => {
     expect(res.status).toBe(200);
   });
 
-  beforeEach(async () => {
+  test("Authenticate created user", async () => {
     const res = await app.request("/api/auth", {
       method: "POST",
       headers: {
@@ -37,6 +37,7 @@ describe("User endpoint testing", () => {
 
     const data = await res.json();
     accessToken = data.accessToken;
+    expect(res.status).toBe(200);
   });
 
   test("Get all user", async () => {
