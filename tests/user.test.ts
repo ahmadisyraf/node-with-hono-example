@@ -1,4 +1,4 @@
-import { describe, test, expect, beforeEach } from "@jest/globals";
+import { describe, test, expect, beforeEach, beforeAll } from "@jest/globals";
 import app from "../src/routes";
 
 let accessToken: string;
@@ -12,8 +12,8 @@ describe("User endpoint testing", () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: "Ahmad Isyraf",
-        email: "ahmadisyraf@gmail.com",
+        name: "Ahmad Isyraf Bin Mohd Faishal",
+        email: "ahmadisyraf@icloud.com",
         password: "isyraf",
       }),
     });
@@ -30,7 +30,7 @@ describe("User endpoint testing", () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: "isyrafmagic@gmail.com",
+        email: "ahmadisyraf@icloud.com",
         password: "isyraf",
       }),
     });
@@ -65,7 +65,7 @@ describe("User endpoint testing", () => {
 
   test("Delete user", async () => {
     const res = await app.request(`/api/user/${userId}`, {
-      method: "GET",
+      method: "DELETE",
       headers: {
         Authorization: `Bearer ${accessToken}`,
         "Content-Type": "application/json",
