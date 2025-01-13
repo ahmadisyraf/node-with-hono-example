@@ -12,7 +12,7 @@ describe("User endpoint testing", () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: "Ahmad Isyraf Bin Mohd Faishal",
+        name: "Ahmad Isyraf Bin Mohd Faishal - Adzha",
         email: "ahmadisyraf@icloud.com",
         password: "isyraf",
       }),
@@ -20,6 +20,7 @@ describe("User endpoint testing", () => {
 
     const data = await res.json();
     userId = data.id;
+    
     expect(res.status).toBe(200);
   });
 
@@ -37,6 +38,7 @@ describe("User endpoint testing", () => {
 
     const data = await res.json();
     accessToken = data.accessToken;
+
     expect(res.status).toBe(200);
   });
 
@@ -48,6 +50,7 @@ describe("User endpoint testing", () => {
         "Content-Type": "application/json",
       },
     });
+
     expect(res.status).toBe(200);
   });
 
@@ -63,6 +66,21 @@ describe("User endpoint testing", () => {
     expect(res.status).toBe(200);
   });
 
+  test("Update user", async () => {
+    const res = await app.request(`/api/user/${userId}`, {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: "Encik Ahmad Isyraf Bin Mohd Faishal - Adzha",
+      }),
+    });
+
+    expect(res.status).toBe(200);
+  });
+
   test("Delete user", async () => {
     const res = await app.request(`/api/user/${userId}`, {
       method: "DELETE",
@@ -71,6 +89,7 @@ describe("User endpoint testing", () => {
         "Content-Type": "application/json",
       },
     });
+
     expect(res.status).toBe(200);
   });
 });
