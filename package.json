@@ -1,5 +1,10 @@
 {
   "name": "honojs-be",
+  "author": {
+    "name": "Ahmad Isyraf",
+    "email": "isyrafmagic@gmail.com",
+    "url": "https://github.com/ahmadisyraf"
+  },
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "test": "jest"
