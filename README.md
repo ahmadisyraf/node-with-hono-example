@@ -1,8 +1,16 @@
+
+Clone repo
+```
+git clone https://github.com/ahmadisyraf/node-with-hono-example.git
+```
+
+Run application
 ```
 npm install
 npm run dev
 ```
 
+Run all test
 ```
-open http://localhost:3000
+npm run test
 ```
