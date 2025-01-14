@@ -16,7 +16,11 @@ export function authenticate({ email, password }: UserLoginRequest) {
         throw new HTTPException(404, { message: "Invalid user" });
       }
 
-      const payload = { ...user, exp: Math.floor(Date.now() / 1000) + 60 * 5 }; // 5 minutes
+      const payload = {
+        sub: user.id,
+        email: user.email,
+        exp: Math.floor(Date.now() / 1000) + 60 * 5, // Token expiration (5 minutes)
+      };
 
       return sign(payload, "secret_key").then((token) => ({
         accessToken: token,

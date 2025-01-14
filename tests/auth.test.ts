@@ -23,7 +23,7 @@ describe("Auth endpoints testing", () => {
   });
 
   test("Authenticate user", async () => {
-    const res = await app.request("/api/auth", {
+    const res = await app.request("/api/auth/sign-in/email-and-password", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -41,7 +41,7 @@ describe("Auth endpoints testing", () => {
   });
 
   test("Invalid user authentication", async () => {
-    const res = await app.request("/api/auth", {
+    const res = await app.request("/api/auth/sign-in/email-and-password", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -52,6 +52,7 @@ describe("Auth endpoints testing", () => {
       }),
     });
 
+    expect(res.status).toBe(404);
     expect(await res.text()).toBe("Invalid user");
   });
 

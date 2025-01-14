@@ -25,7 +25,7 @@ describe("User endpoint testing", () => {
   });
 
   test("Authenticate created user", async () => {
-    const res = await app.request("/api/auth", {
+    const res = await app.request("/api/auth/sign-in/email-and-password", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

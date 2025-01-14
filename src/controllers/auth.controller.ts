@@ -5,15 +5,19 @@ import { userLoginRequest } from "../zod/user.zod";
 
 const auth = new Hono();
 
-auth.post(zValidator("json", userLoginRequest), async (c) => {
-  const { email, password } = c.req.valid("json");
+auth.post(
+  "/sign-in/email-and-password",
+  zValidator("json", userLoginRequest),
+  async (c) => {
+    const { email, password } = c.req.valid("json");
 
-  const token = await authService.authenticate({
-    email,
-    password,
-  });
+    const token = await authService.authenticate({
+      email,
+      password,
+    });
 
-  return c.json(token);
-});
+    return c.json(token);
+  }
+);
 
 export default auth;

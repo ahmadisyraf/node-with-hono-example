@@ -12,10 +12,11 @@
   "dependencies": {
     "@babel/preset-env": "^7.26.0",
     "@hono/node-server": "^1.12.2",
+    "@hono/oauth-providers": "^0.6.2",
     "@hono/zod-validator": "^0.2.2",
     "@prisma/client": "^5.19.0",
     "bcrypt": "^5.1.1",
-    "dotenv": "^16.4.5",
+    "dotenv": "16.4.7",
     "hono": "^4.5.10",
     "postgres": "^3.4.4",
     "prisma": "^5.19.0",
