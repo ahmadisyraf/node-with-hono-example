@@ -9,12 +9,9 @@ auth.post(
   "/sign-in/email-and-password",
   zValidator("json", userLoginRequest),
   async (c) => {
-    const { email, password } = c.req.valid("json");
+    const data = c.req.valid("json");
 
-    const token = await authService.authenticate({
-      email,
-      password,
-    });
+    const token = await authService.authenticate(data);
 
     return c.json(token);
   }

@@ -7,13 +7,8 @@ import { userRequest, userUpdateRequest } from "../zod/user.zod";
 const user = new Hono();
 
 user.post(zValidator("json", userRequest), async (c) => {
-  const { name, email, password } = c.req.valid("json");
-
-  const user = await userService.createUser({
-    name,
-    email,
-    password,
-  });
+  const data = c.req.valid("json");
+  const user = await userService.createUser(data);
 
   return c.json(user);
 });
@@ -25,8 +20,9 @@ user.get(jwt({ secret: "secret_key" }), async (c) => {
 });
 
 user.get("/:id", jwt({ secret: "secret_key" }), async (c) => {
-  const { id } = c.req.param();
-  const user = await userService.getUser({ id });
+  const param = c.req.param();
+
+  const user = await userService.getUser({ ...param });
 
   return c.json(user);
 });
@@ -36,23 +32,19 @@ user.patch(
   zValidator("json", userUpdateRequest),
   jwt({ secret: "secret_key" }),
   async (c) => {
-    const { id } = c.req.param();
-    const { name, password } = c.req.valid("json");
+    const param = c.req.param();
+    const data = c.req.valid("json");
 
-    const user = await userService.updateUser({
-      name,
-      password,
-      id,
-    });
+    const user = await userService.updateUser({ ...data, ...param });
 
     return c.json(user);
   }
 );
 
 user.delete("/:id", jwt({ secret: "secret_key" }), async (c) => {
-  const { id } = c.req.param();
+  const param = c.req.param();
 
-  await userService.deleteUser({ id });
+  await userService.deleteUser({ ...param });
 
   return c.json("User deleted");
 });
