@@ -1,4 +1,6 @@
+import { HTTPException } from "hono/http-exception";
 import prisma from "../lib/prisma";
+import redis from "../lib/redis";
 import { UserRequest, UserUpdateRequest } from "../zod/user.zod";
 import bcrypt from "bcrypt";
 
@@ -13,19 +15,12 @@ export function createUser({ name, email, password }: UserRequest) {
 }
 
 export function getUsers() {
-  return prisma
-    .$transaction([prisma.user.findMany(), prisma.user.count()])
-    .then(([user, count]) => ({
-      user,
-      count,
-    }));
+  return prisma.user.findMany();
 }
 
 export function getUser({ id }: { id: string }) {
   return prisma.user.findFirst({
-    where: {
-      id,
-    },
+    where: { id },
   });
 }
 
@@ -39,14 +34,12 @@ export function updateUser({
       name,
       password: password ? bcrypt.hashSync(password, 10) : undefined,
     },
-    where: {
-      id,
-    },
+    where: { id },
   });
 }
 
-export function deleteUser({ id }: { id: string }) {
-  return prisma.user.delete({
+export async function deleteUser({ id }: { id: string }) {
+  await prisma.user.delete({
     where: {
       id,
     },

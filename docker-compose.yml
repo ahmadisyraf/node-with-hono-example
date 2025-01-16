@@ -30,5 +30,14 @@ services:
     networks:
       - mynetwork
 
+  redis-stack:
+    image: redis/redis-stack:latest
+    container_name: redis_stack_container
+    ports:
+      - "6379:6379"
+      - "8001:8001"
+    networks:
+      - mynetwork
+
 volumes:
   postgres_data:
