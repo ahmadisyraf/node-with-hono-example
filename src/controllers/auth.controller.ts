@@ -36,7 +36,7 @@ auth.post(
     const { refreshToken } = c.req.valid("json");
 
     const token = await authService.refreshAccessToken({
-      token: refreshToken,
+      refreshToken,
     });
 
     return c.json(token);

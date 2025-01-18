@@ -1,4 +1,4 @@
-import { describe, test, expect, beforeAll, afterAll } from "@jest/globals";
+import { describe, test, expect, afterAll } from "@jest/globals";
 import app from "../src/routes";
 
 async function getTokens(): Promise<{
@@ -11,8 +11,8 @@ async function getTokens(): Promise<{
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      email: "ahmadintisar@github.com",
-      password: "intisar",
+      email: "johndoe@example.com",
+      password: "johndoe",
     }),
   });
 
@@ -28,8 +28,8 @@ describe("Auth endpoints testing", () => {
       },
       body: JSON.stringify({
         name: "Ahmad Intisar Bin Mohd Faishal - Adzha",
-        email: "ahmadintisar@github.com",
-        password: "intisar",
+        email: "johndoe@example.com",
+        password: "johndoe",
       }),
     });
 
@@ -43,8 +43,8 @@ describe("Auth endpoints testing", () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: "ahmadintisar@github.com",
-        password: "intisar",
+        email: "johndoe@example.com",
+        password: "johndoe",
       }),
     });
 
@@ -58,8 +58,8 @@ describe("Auth endpoints testing", () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: "ahmadintisar@github.com",
-        password: "imtiaz",
+        email: "johndoe@example.com",
+        password: "johndoe1",
       }),
     });
 

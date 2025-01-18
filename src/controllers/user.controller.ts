@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
 import { jwt } from "hono/jwt";
 import * as userService from "../services/user.service";
-import { userRequest, userUpdateRequest } from "../zod/user.zod";
+import { userUpdateRequest } from "../zod/user.zod";
 
 const user = new Hono();
 
