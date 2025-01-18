@@ -56,7 +56,7 @@ jobs:
       - name: Run Tests
         env:
           DATABASE_URL: "postgresql://postgres:password@localhost:5432/mydb?schema=public"
-        run: npm test
+        run: npm test --
 
       # Build Docker Image (Optional)
       # - name: Build Docker Image
