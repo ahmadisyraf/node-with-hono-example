@@ -11,8 +11,8 @@ async function getTokens(): Promise<{
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      email: "johndoe@example.com",
-      password: "johndoe",
+      email: "isyraf@gmail.com",
+      password: "isyraf",
     }),
   });
 
@@ -22,18 +22,20 @@ async function getTokens(): Promise<{
 let companyId: string;
 
 describe("Test company endpoint", () => {
-  beforeAll(async () => {
-    await app.request("/api/auth/sign-up/email-and-password", {
+  test("Create user", async () => {
+    const res = await app.request("/api/auth/sign-up/email-and-password", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         name: "Ahmad Isyraf Bin Mohd Faishal - Adzha",
-        email: "johndoe@example.com",
-        password: "johndoe",
+        email: "isyraf@gmail.com",
+        password: "isyraf",
       }),
     });
+
+    expect(res.status).toBe(200);
   });
 
   test("Create company", async () => {

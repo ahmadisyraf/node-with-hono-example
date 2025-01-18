@@ -11,8 +11,8 @@ async function getTokens(): Promise<{
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      email: "johndoe@example.com",
-      password: "johndoe",
+      email: "isyraf@yahoo.com",
+      password: "isyraf",
     }),
   });
 
@@ -27,9 +27,9 @@ describe("Auth endpoints testing", () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: "John Doe",
-        email: "johndoe@example.com",
-        password: "johndoe",
+        name: "Ahmad Isyraf",
+        email: "isyraf@yahoo.com",
+        password: "isyraf",
       }),
     });
 
@@ -43,8 +43,8 @@ describe("Auth endpoints testing", () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: "johndoe@example.com",
-        password: "johndoe",
+        email: "isyraf@yahoo.com",
+        password: "isyraf",
       }),
     });
 
@@ -58,8 +58,8 @@ describe("Auth endpoints testing", () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: "johndoe@example.com",
-        password: "johndoe1",
+        email: "isyraf@yahoo.com",
+        password: "ahmad",
       }),
     });
 
