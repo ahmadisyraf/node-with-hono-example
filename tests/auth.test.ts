@@ -27,7 +27,7 @@ describe("Auth endpoints testing", () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: "Ahmad Intisar Bin Mohd Faishal - Adzha",
+        name: "John Doe",
         email: "johndoe@example.com",
         password: "johndoe",
       }),
