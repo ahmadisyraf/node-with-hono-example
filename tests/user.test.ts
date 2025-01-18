@@ -1,12 +1,27 @@
 import { describe, test, expect } from "@jest/globals";
 import app from "../src/routes";
 
-let accessToken: string;
-let userId: string;
+async function getTokens(): Promise<{
+  accessToken: string;
+  refreshToken: string;
+}> {
+  const res = await app.request("/api/auth/sign-in/email-and-password", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: "ahmadisyraf@icloud.com",
+      password: "isyraf",
+    }),
+  });
+
+  return res.json();
+}
 
 describe("User endpoint testing", () => {
-  test("Create user", async () => {
-    const res = await app.request("/api/user", {
+  test("Sign up user", async () => {
+    const res = await app.request("/api/auth/sign-up/email-and-password", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -18,35 +33,16 @@ describe("User endpoint testing", () => {
       }),
     });
 
-    const data = await res.json();
-    userId = data.id;
-
-    expect(res.status).toBe(200);
-  });
-
-  test("Authenticate created user", async () => {
-    const res = await app.request("/api/auth/sign-in/email-and-password", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: "ahmadisyraf@icloud.com",
-        password: "isyraf",
-      }),
-    });
-
-    const data = await res.json();
-    accessToken = data.accessToken;
-
     expect(res.status).toBe(200);
   });
 
   test("Get all user", async () => {
+    const tokens = await getTokens();
+
     const res = await app.request("/api/user", {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${tokens.accessToken}`,
         "Content-Type": "application/json",
       },
     });
@@ -55,10 +51,12 @@ describe("User endpoint testing", () => {
   });
 
   test("Get user", async () => {
-    const res = await app.request(`/api/user/${userId}`, {
+    const tokens = await getTokens();
+
+    const res = await app.request(`/api/user/profile`, {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${tokens.accessToken}`,
         "Content-Type": "application/json",
       },
     });
@@ -67,10 +65,12 @@ describe("User endpoint testing", () => {
   });
 
   test("Update user", async () => {
-    const res = await app.request(`/api/user/${userId}`, {
+    const tokens = await getTokens();
+
+    const res = await app.request(`/api/user/profile`, {
       method: "PATCH",
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${tokens.accessToken}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -82,10 +82,12 @@ describe("User endpoint testing", () => {
   });
 
   test("Delete user", async () => {
-    const res = await app.request(`/api/user/${userId}`, {
+    const tokens = await getTokens();
+
+    const res = await app.request(`/api/user/profile`, {
       method: "DELETE",
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${tokens.accessToken}`,
         "Content-Type": "application/json",
       },
     });

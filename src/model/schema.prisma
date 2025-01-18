@@ -36,7 +36,7 @@ model Address {
     street    String
     city      String
     state     String
-    postcode  String
+    postcode  Int
     user      User     @relation(fields: [userId], references: [id])
     userId    String   @unique @db.Uuid
     createdAt DateTime @default(now())

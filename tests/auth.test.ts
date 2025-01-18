@@ -1,25 +1,39 @@
 import { describe, test, expect, beforeAll, afterAll } from "@jest/globals";
 import app from "../src/routes";
 
-let userId: string;
-let accessToken: string;
+async function getTokens(): Promise<{
+  accessToken: string;
+  refreshToken: string;
+}> {
+  const res = await app.request("/api/auth/sign-in/email-and-password", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: "ahmadintisar@icloud.com",
+      password: "intisar",
+    }),
+  });
+
+  return res.json();
+}
 
 describe("Auth endpoints testing", () => {
-  beforeAll(async () => {
-    const res = await app.request("/api/user", {
+  test("Sign up user", async () => {
+    const res = await app.request("/api/auth/sign-up/email-and-password", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         name: "Ahmad Intisar Bin Mohd Faishal - Adzha",
-        email: "ahmadintisar@gmail.com",
+        email: "ahmadintisar@icloud.com",
         password: "intisar",
       }),
     });
 
-    const data = await res.json();
-    userId = data.id;
+    expect(res.status).toBe(200);
   });
 
   test("Authenticate user", async () => {
@@ -35,9 +49,6 @@ describe("Auth endpoints testing", () => {
     });
 
     expect(res.status).toBe(200);
-
-    const data = await res.json();
-    accessToken = data.accessToken;
   });
 
   test("Invalid user authentication", async () => {
@@ -56,13 +67,33 @@ describe("Auth endpoints testing", () => {
     expect(await res.text()).toBe("Invalid user");
   });
 
-  afterAll(async () => {
-    await app.request(`/api/user/${userId}`, {
+  test("Refresh new token", async () => {
+    const tokens = await getTokens();
+
+    const res = await app.request("/api/auth/refresh-token", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        refreshToken: tokens.refreshToken,
+      }),
+    });
+
+    expect(res.status).toBe(200);
+  });
+
+  test("Delete created user", async () => {
+    const tokens = await getTokens();
+
+    const res = await app.request(`/api/user/profile`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${tokens.refreshToken}`,
       },
     });
+
+    expect(res.status).toBe(200);
   });
 });
