@@ -11,7 +11,7 @@ async function getTokens(): Promise<{
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      email: "ahmadintisar@icloud.com",
+      email: "ahmadintisar@github.com",
       password: "intisar",
     }),
   });
@@ -28,7 +28,7 @@ describe("Auth endpoints testing", () => {
       },
       body: JSON.stringify({
         name: "Ahmad Intisar Bin Mohd Faishal - Adzha",
-        email: "ahmadintisar@icloud.com",
+        email: "ahmadintisar@github.com",
         password: "intisar",
       }),
     });
@@ -43,7 +43,7 @@ describe("Auth endpoints testing", () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: "ahmadintisar@gmail.com",
+        email: "ahmadintisar@github.com",
         password: "intisar",
       }),
     });
@@ -58,7 +58,7 @@ describe("Auth endpoints testing", () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: "ahmadintisar@gmail.com",
+        email: "ahmadintisar@github.com",
         password: "imtiaz",
       }),
     });

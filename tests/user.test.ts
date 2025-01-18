@@ -11,7 +11,7 @@ async function getTokens(): Promise<{
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      email: "ahmadisyraf@icloud.com",
+      email: "ahmadisyraf@github.com",
       password: "isyraf",
     }),
   });
@@ -28,7 +28,7 @@ describe("User endpoint testing", () => {
       },
       body: JSON.stringify({
         name: "Ahmad Isyraf Bin Mohd Faishal - Adzha",
-        email: "ahmadisyraf@icloud.com",
+        email: "ahmadisyraf@github.com",
         password: "isyraf",
       }),
     });
