@@ -1,3 +1,7 @@
+# Mari Beli - Backend
+
+This project is the backend server for a **Mari Beli** application. It provides APIs to manage users, products, orders, and other core functionalities, enabling seamless communication between the frontend and the database.
+
 ## Get Started
 
 Follow these steps to set up and run the project locally:
