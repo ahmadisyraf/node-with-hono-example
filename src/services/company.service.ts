@@ -8,6 +8,13 @@ export async function createCompany({
   ssm,
   userId,
 }: CompanyRequest & { userId: string }) {
+  await prisma.user.update({
+    data: {
+      role: "MERCHANT",
+    },
+    where: { id: userId },
+  });
+
   return prisma.company.create({
     data: {
       email,

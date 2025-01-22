@@ -1,19 +1,19 @@
 import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
-import { jwt } from "hono/jwt";
 import * as userService from "../services/user.service";
 import { userUpdateRequest } from "../zod/user.zod";
+import { authMiddleware } from "../middleware/auth.middleware";
 
 const user = new Hono();
 
-user.get(jwt({ secret: "secret_key" }), async (c) => {
+user.get(authMiddleware, async (c) => {
   const user = await userService.getUsers();
 
   return c.json(user);
 });
 
-user.get("/profile", jwt({ secret: "secret_key" }), async (c) => {
-  const payload = await c.get("jwtPayload");
+user.get("/profile", authMiddleware, async (c) => {
+  const payload = await c.get("payload");
 
   const user = await userService.getUser({
     id: payload.sub,
@@ -24,10 +24,10 @@ user.get("/profile", jwt({ secret: "secret_key" }), async (c) => {
 
 user.patch(
   "/profile",
+  authMiddleware,
   zValidator("json", userUpdateRequest),
-  jwt({ secret: "secret_key" }),
   async (c) => {
-    const payload = await c.get("jwtPayload");
+    const payload = await c.get("payload");
     const data = c.req.valid("json");
 
     const user = await userService.updateUser({
@@ -39,8 +39,8 @@ user.patch(
   }
 );
 
-user.delete("/profile", jwt({ secret: "secret_key" }), async (c) => {
-  const payload = await c.get("jwtPayload");
+user.delete("/profile", authMiddleware, async (c) => {
+  const payload = await c.get("payload");
 
   await userService.deleteUser({
     id: payload.sub,

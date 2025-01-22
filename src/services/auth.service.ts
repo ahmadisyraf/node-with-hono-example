@@ -8,7 +8,7 @@ import redis from "../lib/redis";
 export async function authenticate({ email, password }: UserLoginRequest) {
   const user = await prisma.user.findUnique({
     where: { email },
-    select: { id: true, email: true, password: true },
+    select: { id: true, email: true, password: true, role: true },
   });
 
   if (!user) {
@@ -22,12 +22,14 @@ export async function authenticate({ email, password }: UserLoginRequest) {
   const accessTokenPayload = {
     sub: user.id,
     email: user.email,
+    role: user.role,
     exp: Math.floor(Date.now() / 1000) + 60 * 5, // Token expiration (5 minutes)
   };
 
   const refreshTokenPayload = {
     sub: user.id,
     email: user.email,
+    role: user.role,
     exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7, // Refresh token expiration (7 days / 1 week)
   };
 
@@ -71,6 +73,7 @@ export async function refreshAccessToken({
   const accessTokenPayload = {
     sub: user.id,
     email: user.email,
+    role: user.role,
     exp: Math.floor(Date.now() / 1000) + 60 * 5, // Token expiration (5 minutes)
   };
 
