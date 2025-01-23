@@ -29,6 +29,8 @@ docker compose up -d
 
 ### 4. Generate and Push Prisma Schema  
 
+You can view database schema at `/src/model/schema.prisma`.
+
 Run the following commands to generate the Prisma client and apply the database schema:  
 
 ```bash  
