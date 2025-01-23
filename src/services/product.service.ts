@@ -8,7 +8,7 @@ import {
 } from "../zod/product.zod";
 import s3Client from "../lib/s3Client";
 
-const bucket = process.env.AWS_BUCKET;
+const bucket = process.env.AWS_S3_BUCKET;
 const awsEndpoint = process.env.AWS_ENDPOINT;
 
 export async function getProducts() {

@@ -81,7 +81,7 @@ STRIPE_SECRET_KEY="<Generate your own stripe secret key>"
 AWS_DEFAULT_REGION="us-west-2"
 AWS_ACCESS_KEY_ID="test"
 AWS_SECRET_ACCESS_KEY="test"
-AWS_BUCKET="mybucket"
+AWS_S3_BUCKET="mybucket"
 AWS_ENDPOINT="http://localhost:4566"
 ```
 
