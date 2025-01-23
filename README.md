@@ -43,6 +43,16 @@ npx prisma db push
 
 To create an S3 bucket, go to LocalStack Cloud `https://app.localstack.cloud` and `log in`. Navigate to the `LocalStack Instances` section, open the `Resource Browser`, and select `S3`. Use the interface to create a new bucket name `mybucket` 
 
+You also can use container terminal to create s3 bucket by using aws cli
+
+```bash
+# Check if there is any s3 bucket has been created
+aws --endpoint-url=http://localhost:4566 s3 ls
+
+# Create s3 bucket named mybucket
+aws --endpoint-url=http://localhost:4566 s3 mb s3://mybucket
+```
+
 ### 6. Start the Development Server  
 
 Once everything is set up, start the server:  
