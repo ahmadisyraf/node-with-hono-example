@@ -71,6 +71,9 @@ Now your backend server should be up and running, including the configured S3 bu
 To run this project, you will need to add the following environment variables to your .env file
 
 All off them follow environment in ``docker-compose.yml`` 
+
+for `STRIPE_SECRET_KEY` please generate your own key on stripe dashboard
+
 ```
 DATABASE_URL="postgresql://postgres:password@localhost:5432/mydb?schema=public"
 
