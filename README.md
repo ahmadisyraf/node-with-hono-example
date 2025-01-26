@@ -41,7 +41,7 @@ npx prisma generate
 npx prisma db push  
 ```  
 
-### 5. Create an S3 Bucket in LocalStack  
+### 5. Create S3 Bucket in LocalStack  
 
 To create an S3 bucket, go to LocalStack Cloud `https://app.localstack.cloud` and `log in`. Navigate to the `LocalStack Instances` section, open the `Resource Browser`, and select `S3`. Use the interface to create a new bucket name `mybucket` 
 
@@ -55,18 +55,7 @@ aws --endpoint-url=http://localhost:4566 s3 ls
 aws --endpoint-url=http://localhost:4566 s3 mb s3://mybucket
 ```
 
-### 6. Start the Development Server  
-
-Once everything is set up, start the server:  
-
-```bash  
-npm run dev  
-```  
-
-Now your backend server should be up and running, including the configured S3 bucket, and you can start using the API endpoints.  
-
----  
-## Environment Variables
+### 6. Create environment variable
 
 To run this project, you will need to add the following environment variables to your .env file
 
@@ -88,6 +77,15 @@ AWS_S3_BUCKET="mybucket"
 AWS_ENDPOINT="http://localhost:4566"
 ```
 
+### 7. Start the Development Server  
+
+Once everything is set up, start the server:  
+
+```bash  
+npm run dev  
+```  
+
+Now your backend server should be up and running, including the configured S3 bucket, and you can start using the API endpoints.  
 
 ## Running Tests
 
